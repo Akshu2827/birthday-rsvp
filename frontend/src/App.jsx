@@ -33,10 +33,19 @@ const App = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:3000/api/rsvp', {
+      // Send the data to Web3Forms (A free email service)
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: "YOUR_WEB3FORMS_KEY", // The user will replace this
+          name: formData.name,
+          happiness_level: formData.happiness,
+          subject: "🎉 New Birthday RSVP!"
+        }),
       });
 
       if (!response.ok) {
